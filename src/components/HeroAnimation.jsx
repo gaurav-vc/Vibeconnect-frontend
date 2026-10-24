@@ -11,7 +11,7 @@ const HeroAnimation = ({ play = true }) => {
     let loadedCount = 0;
 
     const currentFrame = (index) => 
-      `/frames/ezgif-frame-${index.toString().padStart(3, '0')}.jpg`;
+      `/hero_frames/frame_${index.toString().padStart(3, '0')}.png`;
 
     const preloadImages = () => {
       for (let i = 1; i <= frameCount; i++) {
