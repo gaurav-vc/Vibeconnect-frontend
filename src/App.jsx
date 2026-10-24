@@ -64,7 +64,7 @@ function App() {
       <div className="fixed top-6 left-6 md:left-10 z-50">
         <Logo />
       </div>
-      <HeroAnimation play={isPlaying} />
+      <HeroAnimation play={isPlaying} audioRef={audioRef} />
       <div className="content-overlay">
         <header className="hero">
           <h1>VibeConnect</h1>
@@ -83,6 +83,7 @@ function App() {
       <audio 
         ref={audioRef} 
         src="/intro_audio.mp3" 
+        preload="auto"
         onEnded={handleAudioEnded}
       />
     </>

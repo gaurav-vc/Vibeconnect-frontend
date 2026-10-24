@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-const HeroAnimation = ({ play = true }) => {
+const HeroAnimation = ({ play = true, audioRef }) => {
   const canvasRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
   const frameCount = 300;
@@ -39,7 +39,7 @@ const HeroAnimation = ({ play = true }) => {
     let animationFrameId;
     let currentFrameIndex = 0;
     let lastTime = 0;
-    const fps = 30; // 30 fps for super smooth 10-second HD animation
+    const fps = 30;
     const frameInterval = 1000 / fps;
 
     const render = (time) => {
@@ -57,21 +57,26 @@ const HeroAnimation = ({ play = true }) => {
       context.imageSmoothingEnabled = true;
       context.imageSmoothingQuality = 'high';
 
+      // Lock frame strictly to the audio currentTime
+      if (play && audioRef?.current && audioRef.current.duration > 0 && !audioRef.current.paused) {
+        const audio = audioRef.current;
+        const progress = Math.min(1, Math.max(0, audio.currentTime / audio.duration));
+        currentFrameIndex = Math.min(frameCount - 1, Math.floor(progress * (frameCount - 1)));
+      } else if (play) {
+        currentFrameIndex = (currentFrameIndex + 1) % frameCount;
+      }
+
       const img = images.current[currentFrameIndex];
       if (img && img.complete && img.naturalWidth > 0) {
         const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
         const x = (canvas.width / 2) - (img.width / 2) * scale;
         const y = (canvas.height / 2) - (img.height / 2) * scale;
         context.drawImage(img, x, y, img.width * scale, img.height * scale);
-      
-        if (play) {
-          currentFrameIndex = (currentFrameIndex + 1) % frameCount;
-        }
       }
     };
     animationFrameId = requestAnimationFrame(render);
     return () => cancelAnimationFrame(animationFrameId);
-  }, [loaded, play]);
+  }, [loaded, play, audioRef]);
 
   return (
     <>
