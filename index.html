@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VibeConnect</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Tailwind CSS for the redesign pages -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#7b5455",
+              "on-primary": "#ffffff",
+              "primary-container": "#f4c2c2",
+              "on-primary-container": "#734e4e",
+              "surface": "#faf9f6",
+              "on-surface": "#1a1c1a",
+              "surface-variant": "#e3e2e0",
+              "on-surface-variant": "#504444",
+              "surface-container": "#efeeeb",
+              "surface-container-low": "#f4f3f1",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-high": "#e9e8e5",
+              "surface-container-highest": "#e3e2e0",
+              "surface-bright": "#faf9f6",
+              "surface-dim": "#dbdad7",
+              "outline": "#827473",
+              "outline-variant": "#d4c2c2",
+              "tertiary": "#5f5e5b",
+              "tertiary-container": "#d0cec9",
+              "secondary": "#5f5e5e",
+              "secondary-container": "#e4e2e1",
+              "error": "#ba1a1a",
+              "error-container": "#ffdad6",
+              "background": "#faf9f6"
+            },
+            fontFamily: {
+              sans: ["'Inter'", "sans-serif"],
+              "display": ["'Outfit'", "sans-serif"],
+              "headline-lg": ["'Outfit'", "sans-serif"],
+              "headline-md": ["'Outfit'", "sans-serif"],
+              "body-lg": ["'Inter'", "sans-serif"],
+              "body-md": ["'Inter'", "sans-serif"],
+              "label-sm": ["'Inter'", "sans-serif"],
+              "label-md": ["'Inter'", "sans-serif"]
+            },
+            spacing: {
+              "margin-mobile": "20px",
+              "margin-desktop": "64px",
+              "container-max": "1280px",
+              "gutter": "24px"
+            },
+            boxShadow: {
+              "soft": "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
+              "glow": "0 0 20px 0 rgba(244,194,194,0.3)"
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
