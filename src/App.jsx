@@ -82,7 +82,7 @@ function App() {
       </div>
       <audio 
         ref={audioRef} 
-        src="/@fs/c:/Users/MC VIP/OneDrive/Desktop/VibeConnect Website/intro_audio.mp3" 
+        src="/intro_audio.mp3" 
         onEnded={handleAudioEnded}
       />
     </>

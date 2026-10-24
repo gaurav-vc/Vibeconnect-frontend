@@ -11,7 +11,7 @@ const HeroAnimation = ({ play = true }) => {
     let loadedCount = 0;
 
     const currentFrame = (index) => 
-      `/@fs/c:/Users/MC VIP/OneDrive/Desktop/VibeConnect Website/Vibe_Connect_frames_300/frame_${index.toString().padStart(3, '0')}.png`;
+      `/frames/ezgif-frame-${index.toString().padStart(3, '0')}.jpg`;
 
     const preloadImages = () => {
       for (let i = 1; i <= frameCount; i++) {

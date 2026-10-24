@@ -13,7 +13,7 @@ const NewAnimationPage = ({ navigateTo }) => {
     let loadedCount = 0;
 
     const currentFrame = (index) => 
-      `/@fs/c:/Users/MC VIP/OneDrive/Desktop/VibeConnect Website/VibeConnect_Experience-Frames_300/frame_${index.toString().padStart(3, '0')}.png`;
+      `/experience_frames/frame_${index.toString().padStart(3, '0')}.png`;
 
     const preloadImages = () => {
       for (let i = 1; i <= frameCount; i++) {
