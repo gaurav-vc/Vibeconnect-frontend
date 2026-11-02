@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
   font-family: 'Outfit', 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.6;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 16px;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.95);
@@ -16,27 +16,34 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
 }
 
 #root {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
 }
 
-/* Background Canvas Styles */
+/* Background Canvas & Video Styles */
 .background-canvas {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1; /* Place behind everything */
-  pointer-events: none; /* Let clicks pass through to content */
+  height: 100dvh;
+  z-index: 0;
+  pointer-events: none;
   object-fit: cover;
   filter: contrast(1.15) saturate(1.2) drop-shadow(0 0 10px rgba(0,0,0,0.5));
 }
@@ -53,19 +60,22 @@ body {
   align-items: center;
   z-index: 10;
   color: white;
-  font-size: 2rem;
+  font-size: 1.5rem;
   letter-spacing: 2px;
 }
 
 /* Content Overlay Styles */
 .content-overlay {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  z-index: 1;
+  z-index: 10;
+  padding: 1.5rem;
+  box-sizing: border-box;
 }
 
 .hero {
@@ -75,48 +85,61 @@ body {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   padding: 0;
-  animation: fadeIn 2s ease-out;
+  animation: fadeIn 1.5s ease-out;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .hero h1 {
-  font-size: 6rem;
+  font-size: clamp(2.5rem, 8vw, 6rem);
   font-weight: 900;
   color: #ffffff;
-  margin-bottom: 0.5rem;
-  letter-spacing: -2.5px;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
   text-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .hero p {
-  font-size: 2.2rem;
+  font-size: clamp(1.1rem, 3vw, 2rem);
   font-weight: 500;
   color: rgba(255, 255, 255, 0.95);
-  margin-bottom: 3.5rem;
-  letter-spacing: -0.5px;
+  margin-bottom: 2.5rem;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
   text-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .cta-button {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.4);
   color: white;
-  font-size: 1.25rem; /* Reduced size but not too small */
-  font-weight: 600;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 700;
   font-family: inherit;
-  padding: 1rem 3rem; /* Adjusted padding to match the smaller text */
+  padding: 0.9rem 2.5rem;
   border-radius: 50px;
   letter-spacing: 0.5px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .cta-button:hover {
-  transform: translateY(-4px) scale(1.05);
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px) scale(1.04);
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.cta-button:active {
+  transform: scale(0.97);
 }
 
 .cta-button.pulse {
@@ -125,10 +148,10 @@ body {
 
 @keyframes pulseButton {
   0% {
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
   }
   70% {
-    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+    box-shadow: 0 0 0 22px rgba(255, 255, 255, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
@@ -141,51 +164,30 @@ body {
 }
 
 .glass-panel {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
-  border: 1px solid rgba(212, 194, 194, 0.3);
+  border: 1px solid rgba(212, 194, 194, 0.35);
   border-radius: 1.5rem;
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
 }
+
 .glass-panel-hover {
-  transition: all 500ms ease-out;
+  transition: all 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
 .glass-panel-hover:hover {
   background-color: #ffffff;
-  border-color: rgba(123, 84, 85, 0.2);
+  border-color: rgba(123, 84, 85, 0.3);
   transform: translateY(-0.25rem);
-}
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: #504444;
-  border-radius: 1rem;
-  padding: 0.75rem 1rem;
-  margin: 0 0.75rem;
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  font-size: 14px;
-  font-weight: 500;
-}
-.nav-item:hover {
-  background-color: #f4f3f1;
-  color: #1a1c1a;
-}
-.nav-item.active {
-  background-color: rgba(244, 194, 194, 0.3);
-  color: #7b5455;
-  font-weight: 600;
-}
-.nav-item.active:hover {
-  background-color: rgba(244, 194, 194, 0.4);
+  box-shadow: 0 15px 35px rgba(123, 84, 85, 0.12);
 }
 
 .glass-card {
-  background: rgba(250, 249, 246, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(227, 226, 224, 0.5);
+  background: rgba(250, 249, 246, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(227, 226, 224, 0.6);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -204,7 +206,7 @@ body {
 }
 
 .glass-card:hover {
-  transform: translateY(-5px) scale(1.02);
+  transform: translateY(-4px) scale(1.01);
   box-shadow: 0 12px 40px rgba(123, 84, 85, 0.15);
   border-color: rgba(244, 194, 194, 0.8);
 }
@@ -225,21 +227,35 @@ body {
 }
 
 .glass-card:hover .glow-icon-wrapper {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .parallax-section {
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+@media (min-width: 1024px) {
+  .parallax-section {
+    background-attachment: fixed;
+  }
 }
 
 .text-gradient {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-image: linear-gradient(90deg, #1a1c1a 0%, #7b5455 100%);
+  background-image: linear-gradient(90deg, #7b5455 0%, #b87b7c 50%, #7b5455 100%);
+  background-size: 200% auto;
+  animation: shineGradient 6s linear infinite;
+}
+
+@keyframes shineGradient {
+  to {
+    background-position: 200% center;
+  }
 }
 
 .bg-pattern {
@@ -249,31 +265,33 @@ body {
 
 .fade-in-up {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.fade-in-up.visible {
+.fade-in-up.visible,
+.fade-in-up.in-view {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* 3D Flip Card Super Beautiful Animations */
+/* 3D Flip Card Super Beautiful Animations (Hover for Desktop, .is-flipped for Mobile & Tablet) */
 .flip-card-container {
   perspective: 1500px;
   cursor: pointer;
-  height: 420px;
 }
 
 .flip-card-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.9s cubic-bezier(0.34, 1.2, 0.64, 1);
+  min-height: 290px;
+  transition: transform 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
   transform-style: preserve-3d;
 }
 
 .flip-card-container:hover .flip-card-inner,
+.flip-card-container.is-flipped .flip-card-inner,
 .flip-card-container:focus-within .flip-card-inner {
   transform: rotateY(180deg);
 }
@@ -282,6 +300,7 @@ body {
 .flip-card-back {
   width: 100%;
   height: 100%;
+  min-height: inherit;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   border-radius: 1.5rem;
@@ -292,11 +311,10 @@ body {
 
 .flip-card-front {
   z-index: 2;
-  /* Retain glass-card styles but applied directly to front face */
-  background: rgba(250, 249, 246, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(227, 226, 224, 0.5);
+  background: rgba(250, 249, 246, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(227, 226, 224, 0.6);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
@@ -304,35 +322,31 @@ body {
 
 .flip-card-back {
   transform: rotateY(180deg);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 249, 246, 0.85) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 249, 246, 0.9) 100%);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  border: 1px solid rgba(244, 194, 194, 0.6);
-  box-shadow: 0 20px 50px rgba(123, 84, 85, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(244, 194, 194, 0.7);
+  box-shadow: 0 20px 50px rgba(123, 84, 85, 0.18), inset 0 0 20px rgba(255, 255, 255, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 2.5rem;
+  padding: 1.75rem;
   z-index: 1;
 }
 
 .flip-card-back h3 {
   color: #7b5455;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 800;
-  margin-bottom: 1rem;
-  background: linear-gradient(90deg, #7b5455 0%, #a67b7b 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.75rem;
 }
 
 .flip-card-back p {
-  color: #504444;
-  font-size: 1.05rem;
-  line-height: 1.7;
+  color: #403636;
+  font-size: 0.95rem;
+  line-height: 1.6;
   font-weight: 500;
 }
 
@@ -340,15 +354,15 @@ body {
 .hover-accordion-item {
   position: relative;
   overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .hover-accordion-item::before {
   content: '';
   position: absolute;
   top: 0; left: 0; width: 0; height: 100%;
-  background: linear-gradient(90deg, rgba(244, 194, 194, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-  transition: width 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: linear-gradient(90deg, rgba(244, 194, 194, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
+  transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
   z-index: 0;
   pointer-events: none;
 }
@@ -359,14 +373,14 @@ body {
 }
 
 .hover-accordion-item:hover {
-  transform: translateX(12px) scale(1.01);
-  box-shadow: inset 6px 0 0 0 #7b5455, 0 15px 30px rgba(123, 84, 85, 0.15);
+  transform: translateX(6px);
+  box-shadow: inset 4px 0 0 0 #7b5455, 0 10px 25px rgba(123, 84, 85, 0.1);
 }
 
 .hover-accordion-item.is-open {
-  transform: scale(1.02);
-  box-shadow: inset 6px 0 0 0 #7b5455, 0 25px 50px rgba(123, 84, 85, 0.25);
-  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.008);
+  box-shadow: inset 5px 0 0 0 #7b5455, 0 18px 40px rgba(123, 84, 85, 0.15);
+  background: rgba(255, 255, 255, 0.95);
   border-color: rgba(244, 194, 194, 0.8);
 }
 
@@ -375,20 +389,11 @@ body {
   z-index: 1;
 }
 
-.hover-accordion-item .accordion-title {
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
-}
-
-.hover-accordion-item:hover .accordion-title,
-.hover-accordion-item.is-open .accordion-title {
-  transform: translateX(8px);
-}
-/* Hover Shine Card Animation (For Large Feature Cards) */
+/* Hover Shine Card Animation */
 .hover-shine-card {
   position: relative;
   overflow: hidden;
-  transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-  transform: translateY(0);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .hover-shine-card::after {
@@ -406,28 +411,29 @@ body {
 }
 
 .hover-shine-card:hover {
-  transform: translateY(-12px) scale(1.03);
-  box-shadow: 0 25px 50px rgba(123, 84, 85, 0.25), 0 0 30px rgba(244, 194, 194, 0.4);
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 0 20px 45px rgba(123, 84, 85, 0.18), 0 0 25px rgba(244, 194, 194, 0.3);
   border-color: rgba(244, 194, 194, 0.8);
 }
 
 .hover-shine-card:hover::after {
   left: 200%;
-  transition: all 1s ease;
+  transition: all 0.9s ease;
 }
 
 .shine-image {
-  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.hover-shine-card:hover .shine-image {
-  transform: scale(1.1);
-  filter: brightness(1.1);
+  transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Hover Glow Card Animation (For Small Feature Cards) */
+.hover-shine-card:hover .shine-image {
+  transform: scale(1.06);
+  filter: brightness(1.08);
+}
+
+/* Hover Glow Card Animation */
 .hover-glow-card {
   position: relative;
-  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 1;
   background-clip: padding-box;
 }
@@ -435,23 +441,23 @@ body {
 .hover-glow-card::before {
   content: '';
   position: absolute;
-  inset: -2px;
+  inset: -1.5px;
   background: linear-gradient(45deg, #7b5455, #f4c2c2, #dbdad7, #7b5455);
   background-size: 200% 200%;
   border-radius: inherit;
   z-index: -1;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.4s ease;
 }
 
 .hover-glow-card:hover {
-  transform: translateY(-10px);
-  background: rgba(255, 255, 255, 0.95); /* Brighten up the card slightly on hover */
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.98);
 }
 
 .hover-glow-card:hover::before {
   opacity: 1;
-  animation: borderGlowGradient 3s ease infinite, borderGlowPulse 2s linear infinite;
+  animation: borderGlowGradient 3s ease infinite;
 }
 
 @keyframes borderGlowGradient {
@@ -460,19 +466,13 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-@keyframes borderGlowPulse {
-  0% { filter: blur(6px); }
-  50% { filter: blur(12px); }
-  100% { filter: blur(6px); }
-}
-
 .hover-glow-card .glow-icon-wrapper {
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .hover-glow-card:hover .glow-icon-wrapper {
-  transform: translateY(-12px) rotate(15deg) scale(1.2);
-  box-shadow: 0 15px 25px rgba(123, 84, 85, 0.3);
+  transform: translateY(-6px) rotate(10deg) scale(1.15);
+  box-shadow: 0 12px 20px rgba(123, 84, 85, 0.25);
   background: #f4c2c2;
   color: #1a1c1a;
   border-color: transparent;

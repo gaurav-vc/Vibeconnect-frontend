@@ -1,182 +1,263 @@
-import React, { useEffect } from 'react';
-import Logo from './Logo';
+import React, { useState } from 'react';
+import Navbar from './Navbar';
 import Footer from './Footer';
 
 export default function Pricing({ navigateTo }) {
+  const [annualBilling, setAnnualBilling] = useState(false);
+
   return (
-    <div className="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container min-h-screen">
-      {/* Top Navigation */}
-      <header className="sticky top-0 z-50 w-full border-b border-surface-variant bg-surface-container-lowest/80 backdrop-blur-md">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4 text-on-surface">
-            <Logo />
-          </div>
-          <nav className="hidden md:flex items-center gap-8">
-            <button onClick={() => navigateTo(1)} className="text-on-surface-variant hover:text-primary transition-colors font-label-sm uppercase">Home</button>
-            <button onClick={() => navigateTo(3)} className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium leading-normal">Features</button>
-            <button onClick={() => navigateTo(4)} className="text-on-surface-variant hover:text-primary transition-colors font-label-sm uppercase text-primary font-bold">Pricing</button>
-            <button onClick={() => navigateTo(5)} className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium leading-normal">Experience</button>
-            <button onClick={() => navigateTo(6)} className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium leading-normal">Contact Us</button>
-            <button onClick={() => navigateTo(7)} className="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium leading-normal">FAQ</button>
-          </nav>
-          <div className="flex items-center gap-4">
-            <button className="hidden md:flex items-center justify-center px-4 py-2 text-on-surface font-label-sm uppercase hover:bg-surface-variant rounded-lg transition-colors">Log In</button>
-            <button onClick={() => navigateTo(2)} className="flex items-center justify-center px-6 py-2 bg-primary-container text-on-primary-container font-label-sm uppercase rounded-lg hover:bg-primary hover:text-on-primary transition-colors shadow-sm">Sign Up</button>
-          </div>
-        </div>
-      </header>
+    <div className="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col relative">
+      {/* Decorative Floating Orbs */}
+      <div className="fixed top-[-10%] right-[-5%] w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-gradient-to-br from-[#f4c2c2]/25 to-transparent rounded-full blur-[90px] sm:blur-[140px] pointer-events-none -z-10" />
+      <div className="fixed bottom-[-10%] left-[-5%] w-[350px] sm:w-[700px] h-[350px] sm:h-[700px] bg-gradient-to-tr from-[#ecbaba]/20 to-transparent rounded-full blur-[100px] sm:blur-[150px] pointer-events-none -z-10" />
+
+      {/* Shared Responsive Navbar */}
+      <Navbar currentPage={4} navigateTo={navigateTo} />
       
-      <main className="w-full">
+      <main className="w-full flex-1 pt-20 sm:pt-24">
         {/* Hero Section */}
-        <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 px-margin-mobile md:px-margin-desktop text-center overflow-hidden">
-          {/* Decorative background blob */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-container/20 rounded-full blur-3xl -z-10"></div>
-          <div className="max-w-[800px] mx-auto flex flex-col items-center gap-6 fade-in-up visible">
-            <span className="inline-block py-1.5 px-4 rounded-full bg-surface-variant text-on-surface-variant font-label-sm uppercase tracking-wider">Premium Experience</span>
-            <h1 className="font-display text-display text-on-surface">Elevate Your Workflow with <span className="text-primary">ProTier</span></h1>
-            <p className="font-body-lg text-on-surface-variant max-w-[600px]">Experience top-tier features designed for ambitious professionals. Select a plan tailored to scale alongside your success.</p>
+        <section className="relative pt-12 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 text-center overflow-hidden">
+          <div className="max-w-[800px] mx-auto flex flex-col items-center gap-4 sm:gap-6 fade-in-up visible">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-container/40 text-primary border border-primary/20 text-xs font-bold uppercase tracking-widest">
+              <span className="material-symbols-outlined text-sm">payments</span>
+              <span>Transparent & Scalable Plans</span>
+            </div>
+
+            <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold text-on-surface tracking-tight">
+              Elevate Your Workflow with <span className="text-primary">ProTier</span>
+            </h1>
+
+            <p className="font-body-lg text-sm sm:text-base md:text-lg text-on-surface-variant max-w-[620px] leading-relaxed">
+              Experience enterprise-grade features designed for ambitious professionals. Select a plan tailored to scale seamlessly with your team.
+            </p>
+
+            {/* Monthly / Annual Toggle */}
+            <div className="flex items-center gap-3 p-1.5 rounded-full bg-surface-container-high/70 border border-outline-variant/30 mt-2">
+              <button 
+                onClick={() => setAnnualBilling(false)}
+                className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                  !annualBilling ? 'bg-primary text-on-primary shadow-md' : 'text-on-surface-variant hover:text-on-surface'
+                }`}
+              >
+                Monthly Billing
+              </button>
+              <button 
+                onClick={() => setAnnualBilling(true)}
+                className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  annualBilling ? 'bg-primary text-on-primary shadow-md' : 'text-on-surface-variant hover:text-on-surface'
+                }`}
+              >
+                <span>Annual Billing</span>
+                <span className="px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase">Save 20%</span>
+              </button>
+            </div>
           </div>
         </section>
         
         {/* Pricing Cards Section */}
-        <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-32">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center fade-in-up visible" style={{ transitionDelay: '0.1s' }}>
+        <section className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 pb-20 sm:pb-28">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch fade-in-up visible">
+            
             {/* Basic Plan */}
-            <div className="flex flex-col rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 shadow-sm transition-all hover:shadow-md hover:-translate-y-1 h-full relative z-10">
-              <div className="mb-8">
-                <h3 className="font-headline-md text-on-surface mb-2">Basic</h3>
-                <p className="font-body-md text-on-surface-variant mb-6">Essential tools for individuals starting their journey.</p>
+            <div className="flex flex-col rounded-3xl border border-outline-variant/40 bg-surface-container-lowest/80 backdrop-blur-xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1 relative z-10">
+              <div className="mb-6">
+                <span className="text-xs uppercase tracking-widest font-bold text-on-surface-variant/70">Starter</span>
+                <h3 className="font-display text-2xl font-bold text-on-surface mt-1 mb-2">Basic Tier</h3>
+                <p className="font-body-md text-xs sm:text-sm text-on-surface-variant mb-6">Essential tools for individuals and small teams beginning their scaling journey.</p>
                 <div className="flex items-baseline gap-1">
-                  <span className="font-display text-4xl text-on-surface">$29</span>
-                  <span className="font-body-md text-on-surface-variant">/month</span>
+                  <span className="font-display text-4xl sm:text-5xl font-extrabold text-on-surface">
+                    ${annualBilling ? '22' : '29'}
+                  </span>
+                  <span className="font-body-md text-sm text-on-surface-variant">/ user / mo</span>
                 </div>
               </div>
-              <button className="w-full py-3 px-4 rounded-lg bg-surface-variant text-on-surface font-label-sm uppercase hover:bg-outline-variant transition-colors mb-8">Start Basic</button>
-              <ul className="flex flex-col gap-4 mt-auto">
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                  <span className="font-body-md text-on-surface-variant">Core feature access</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                  <span className="font-body-md text-on-surface-variant">Standard support</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                  <span className="font-body-md text-on-surface-variant">Up to 3 projects</span>
-                </li>
-              </ul>
+
+              <button 
+                onClick={() => navigateTo(2)}
+                className="w-full py-3.5 px-4 rounded-full bg-surface-container-high text-on-surface font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-all shadow-sm mb-8 cursor-pointer active:scale-95"
+              >
+                Get Started Free
+              </button>
+
+              <div className="border-t border-outline-variant/20 pt-6 mt-auto">
+                <p className="text-xs font-bold uppercase tracking-wider text-on-surface mb-4">Included in Basic:</p>
+                <ul className="flex flex-col gap-3.5 text-xs sm:text-sm text-on-surface-variant">
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span>Core Task & Sprint Engine</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span>Standard Community Support</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span>Up to 5 Active Workspaces</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span>10 GB Encrypted Cloud Storage</span>
+                  </li>
+                </ul>
+              </div>
             </div>
             
             {/* Pro Plan (Most Popular) */}
-            <div className="flex flex-col rounded-3xl border-2 border-primary glass-panel p-10 shadow-2xl md:-translate-y-4 hover:-translate-y-5 transition-all relative z-20 h-[105%]">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-on-primary font-label-sm uppercase px-4 py-1.5 rounded-full shadow-md whitespace-nowrap">
-                Most Popular
+            <div className="flex flex-col rounded-3xl border-2 border-primary bg-surface-container-lowest/95 backdrop-blur-2xl p-7 sm:p-10 shadow-2xl relative z-20 md:-translate-y-3 hover:-translate-y-4 transition-all">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-[#9a6c6d] text-on-primary text-xs font-extrabold uppercase px-4 py-1.5 rounded-full shadow-lg tracking-wider whitespace-nowrap">
+                ★ Most Popular Choice
               </div>
-              <div className="mb-8 mt-2">
-                <h3 className="font-headline-lg text-primary mb-2">Pro</h3>
-                <p className="font-body-md text-on-surface-variant mb-6">Advanced capabilities for growing teams and agencies.</p>
+
+              <div className="mb-6 mt-2">
+                <span className="text-xs uppercase tracking-widest font-bold text-primary">High-Growth</span>
+                <h3 className="font-display text-3xl font-extrabold text-primary mt-1 mb-2">Professional</h3>
+                <p className="font-body-md text-xs sm:text-sm text-on-surface-variant mb-6">Advanced modular capabilities for growing organizations and fast-paced teams.</p>
                 <div className="flex items-baseline gap-1">
-                  <span className="font-display text-5xl text-on-surface">$79</span>
-                  <span className="font-body-md text-on-surface-variant">/month</span>
+                  <span className="font-display text-5xl sm:text-6xl font-black text-on-surface">
+                    ${annualBilling ? '62' : '79'}
+                  </span>
+                  <span className="font-body-md text-sm text-on-surface-variant">/ user / mo</span>
                 </div>
               </div>
-              <button className="w-full py-4 px-4 rounded-xl bg-primary text-on-primary font-label-sm uppercase hover:bg-surface-tint transition-all shadow-lg hover:shadow-xl mb-8">Get Pro Now</button>
-              <ul className="flex flex-col gap-5 mt-auto">
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                  <span className="font-body-md text-on-surface font-medium">All Basic features</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                  <span className="font-body-md text-on-surface-variant">Priority 24/7 support</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                  <span className="font-body-md text-on-surface-variant">Unlimited projects</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                  <span className="font-body-md text-on-surface-variant">Advanced analytics dashboard</span>
-                </li>
-              </ul>
+
+              <button 
+                onClick={() => navigateTo(2)}
+                className="w-full py-4 px-4 rounded-full bg-primary text-on-primary font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-primary/90 transition-all shadow-xl shadow-primary/30 mb-8 cursor-pointer active:scale-95"
+              >
+                Start 14-Day Pro Trial
+              </button>
+
+              <div className="border-t border-outline-variant/30 pt-6 mt-auto">
+                <p className="text-xs font-bold uppercase tracking-wider text-primary mb-4">Everything in Basic, plus:</p>
+                <ul className="flex flex-col gap-3.5 text-xs sm:text-sm">
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span className="text-on-surface font-semibold">Priority 24/7 SLA Support</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span className="text-on-surface font-semibold">Unlimited Workspace Projects</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span className="text-on-surface font-semibold">Executive Analytics & Velocity Metrics</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span className="text-on-surface font-semibold">Meeting Management & MOM Auto-Generation</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span className="text-on-surface font-semibold">100 GB Cloud Storage per seat</span>
+                  </li>
+                </ul>
+              </div>
             </div>
             
             {/* Enterprise Plan */}
-            <div className="flex flex-col rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 shadow-sm transition-all hover:shadow-md hover:-translate-y-1 h-full relative z-10">
-              <div className="mb-8">
-                <h3 className="font-headline-md text-on-surface mb-2">Enterprise</h3>
-                <p className="font-body-md text-on-surface-variant mb-6">Custom solutions for large-scale operations.</p>
+            <div className="flex flex-col rounded-3xl border border-outline-variant/40 bg-surface-container-lowest/80 backdrop-blur-xl p-6 sm:p-8 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1 relative z-10">
+              <div className="mb-6">
+                <span className="text-xs uppercase tracking-widest font-bold text-on-surface-variant/70">Custom Scale</span>
+                <h3 className="font-display text-2xl font-bold text-on-surface mt-1 mb-2">Enterprise</h3>
+                <p className="font-body-md text-xs sm:text-sm text-on-surface-variant mb-6">Tailored architecture and dedicated infrastructure for enterprise governance.</p>
                 <div className="flex items-baseline gap-1">
-                  <span className="font-display text-4xl text-on-surface">$199</span>
-                  <span className="font-body-md text-on-surface-variant">/month</span>
+                  <span className="font-display text-4xl sm:text-5xl font-extrabold text-on-surface">
+                    ${annualBilling ? '159' : '199'}
+                  </span>
+                  <span className="font-body-md text-sm text-on-surface-variant">/ user / mo</span>
                 </div>
               </div>
-              <button className="w-full py-3 px-4 rounded-lg bg-surface-container border border-outline text-on-surface font-label-sm uppercase hover:bg-surface-variant transition-colors mb-8">Contact Sales</button>
-              <ul className="flex flex-col gap-4 mt-auto">
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                  <span className="font-body-md text-on-surface-variant">All Pro features</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                  <span className="font-body-md text-on-surface-variant">Dedicated account manager</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                  <span className="font-body-md text-on-surface-variant">Custom API integration</span>
-                </li>
-              </ul>
+
+              <button 
+                onClick={() => navigateTo(6)}
+                className="w-full py-3.5 px-4 rounded-full bg-surface-container-high text-on-surface font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-all shadow-sm mb-8 cursor-pointer active:scale-95"
+              >
+                Contact Enterprise Sales
+              </button>
+
+              <div className="border-t border-outline-variant/20 pt-6 mt-auto">
+                <p className="text-xs font-bold uppercase tracking-wider text-on-surface mb-4">Enterprise Highlights:</p>
+                <ul className="flex flex-col gap-3.5 text-xs sm:text-sm text-on-surface-variant">
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span>All Professional Capabilities</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span>Dedicated Technical Account Manager</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span>Custom REST/GraphQL API Integration</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span>Custom SSO, SAML & SOC2 Audit Trails</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                    <span>Unlimited Secure Storage & Custom Backup</span>
+                  </li>
+                </ul>
+              </div>
             </div>
+
           </div>
         </section>
         
-        {/* Social Proof / Testimonials */}
-        <section className="bg-surface-container-low py-24 px-margin-mobile md:px-margin-desktop border-t border-surface-variant">
-          <div className="max-w-container-max mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="font-headline-lg text-on-surface mb-4">Trusted by Industry Leaders</h2>
-              <p className="font-body-lg text-on-surface-variant max-w-2xl mx-auto">See how top professionals are leveraging ProTier to accelerate their growth and streamline operations.</p>
+        {/* Testimonials */}
+        <section className="bg-surface-container-low/70 py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-t border-outline-variant/20">
+          <div className="max-w-[1400px] mx-auto">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-on-surface mb-3">Trusted by Industry Leaders</h2>
+              <p className="font-body-lg text-sm sm:text-base text-on-surface-variant max-w-xl mx-auto">
+                Discover why premier organizations depend on VibeConnect to power their daily work execution.
+              </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {/* Testimonial 1 */}
-              <div className="flex flex-col md:flex-row gap-6 p-8 rounded-2xl bg-surface-container-lowest shadow-sm border border-outline-variant/30 fade-in-up visible" style={{ transitionDelay: '0.1s' }}>
-                <div className="w-24 h-24 shrink-0 rounded-full overflow-hidden border-2 border-primary-container">
+              <div className="flex flex-col sm:flex-row gap-5 sm:gap-6 p-6 sm:p-8 rounded-3xl bg-surface-container-lowest shadow-md border border-outline-variant/30 fade-in-up visible">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl overflow-hidden border-2 border-primary-container">
                   <img className="w-full h-full object-cover" alt="Sarah Jenkins" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1JCjFx41DYznhEoDV2Zm4cuxNmSZqCk9pN1U2QhrOKouUpeJ7W5wFb8iZKOTQ81_Wku3ECesiRkueMDK6P2cmPmZewkyc6-voBtZY2U2tki98CNS441lVOqOmQaOBYTihQxxzvVNo56lHYzZhg67VqwUpwpeKBMUSshjasqGPyfPhVosEzjVby_PysZOWRYcwTXvaZHJrGd5lpZTLWLyHGMM0hetyRMmgng4OnQoESOiSSOAZY7AZ"/>
                 </div>
                 <div className="flex flex-col justify-center">
-                  <div className="flex gap-1 mb-3 text-primary-container">
-                    <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                  <div className="flex gap-1 mb-2 text-primary">
+                    <span className="material-symbols-outlined text-base">star</span>
+                    <span className="material-symbols-outlined text-base">star</span>
+                    <span className="material-symbols-outlined text-base">star</span>
+                    <span className="material-symbols-outlined text-base">star</span>
+                    <span className="material-symbols-outlined text-base">star</span>
                   </div>
-                  <p className="font-body-lg text-on-surface italic mb-4">"Switching to the Pro tier was the best decision for our team. The premium features are unmatched and the interface is elegantly designed."</p>
+                  <p className="font-body-lg text-xs sm:text-sm text-on-surface italic mb-3 leading-relaxed">
+                    "Switching to VibeConnect Pro was the best architectural decision for our product team. The modular features are unmatched and the interface is breathtaking."
+                  </p>
                   <div>
-                    <h4 className="font-headline-md text-base text-on-surface">Sarah Jenkins</h4>
-                    <p className="font-body-md text-sm text-on-surface-variant">Creative Director, DesignCo</p>
+                    <h4 className="font-headline-md text-sm font-bold text-on-surface">Sarah Jenkins</h4>
+                    <p className="font-body-md text-xs text-on-surface-variant">Creative Director, DesignCo</p>
                   </div>
                 </div>
               </div>
               
               {/* Testimonial 2 */}
-              <div className="flex flex-col md:flex-row gap-6 p-8 rounded-2xl bg-surface-container-lowest shadow-sm border border-outline-variant/30 fade-in-up visible" style={{ transitionDelay: '0.2s' }}>
-                <div className="w-24 h-24 shrink-0 rounded-full overflow-hidden border-2 border-primary-container">
+              <div className="flex flex-col sm:flex-row gap-5 sm:gap-6 p-6 sm:p-8 rounded-3xl bg-surface-container-lowest shadow-md border border-outline-variant/30 fade-in-up visible">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl overflow-hidden border-2 border-primary-container">
                   <img className="w-full h-full object-cover" alt="Michael Chen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-UEMkOu0F79MglxF43HfP02Ri7ZaM16yEf3l9bPZ_FF8yNx2Tolx4FvqOb7b4KUg0YBJobSRV7UlDeapAzfBlUQRLlMJ4ultWvz80g-Nv4-kLAix9-4kucA1avqtdqf8bXOeQueKhhXlp5YK4o1WcXTDMqpC4EZ1Qu-eeEsplGkUPiSqxHp9tnd9555k5bgpa-4FlUqNIRQjTgblM2q6sFPqOQCw0oiFUkyp362tajus4EBo_4EOq"/>
                 </div>
                 <div className="flex flex-col justify-center">
-                  <div className="flex gap-1 mb-3 text-primary-container">
-                    <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                  <div className="flex gap-1 mb-2 text-primary">
+                    <span className="material-symbols-outlined text-base">star</span>
+                    <span className="material-symbols-outlined text-base">star</span>
+                    <span className="material-symbols-outlined text-base">star</span>
+                    <span className="material-symbols-outlined text-base">star</span>
+                    <span className="material-symbols-outlined text-base">star</span>
                   </div>
-                  <p className="font-body-lg text-on-surface italic mb-4">"The enterprise plan gives us everything we need and more. Highly recommended for scaling businesses that value refined user experiences."</p>
+                  <p className="font-body-lg text-xs sm:text-sm text-on-surface italic mb-3 leading-relaxed">
+                    "The Enterprise tier gives us total control over governance, multi-project velocity, and compliance. Highly recommended for any scaling organization."
+                  </p>
                   <div>
-                    <h4 className="font-headline-md text-base text-on-surface">Michael Chen</h4>
-                    <p className="font-body-md text-sm text-on-surface-variant">CTO, TechFlow</p>
+                    <h4 className="font-headline-md text-sm font-bold text-on-surface">Michael Chen</h4>
+                    <p className="font-body-md text-xs text-on-surface-variant">Chief Technology Officer, TechFlow</p>
                   </div>
                 </div>
               </div>
@@ -185,7 +266,7 @@ export default function Pricing({ navigateTo }) {
         </section>
       </main>
       
-      {/* Shared Footer */}
+      {/* Shared Responsive Footer */}
       <Footer navigateTo={navigateTo} />
     </div>
   );
